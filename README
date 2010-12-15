@@ -1,0 +1,4 @@
+TDD Exercise
+=============
+
+Spawned by a blog post by @jbrains, this is a simple TDD exercise that aims to develop a modular, well-designed system to handle a transaction at a point of sale.
