@@ -2,7 +2,7 @@ package ca.jbrains.pos;
 
 import java.text.NumberFormat;
 
-public class Price {
+class Price {
 	private int cents;
 
 	public Price(int cents) {
