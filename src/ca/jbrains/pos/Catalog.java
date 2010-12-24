@@ -1,6 +1,6 @@
 package ca.jbrains.pos;
 
 interface Catalog {
-	Price lookupPrice(String barcode);
+	Product lookupProduct(String barcode);
 	boolean hasBarcode(String barcode);
 }

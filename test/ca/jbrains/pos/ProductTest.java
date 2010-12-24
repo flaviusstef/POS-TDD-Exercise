@@ -27,10 +27,10 @@ public class ProductTest {
 	public void itComputesPriceTax() {
 		p.setPstExempt(true);
 		int expectedExempt = Math.round(1000.0f*(1.0f+0.05f));
-		assertEquals(Price.inCents(expectedExempt), p.priceWithTax());
+		assertEquals(Price.inCents(expectedExempt), p.getPriceWithTax());
 		
 		p.setPstExempt(false);
 		int expectedNotExempt = Math.round(1000.0f*(1.0f+0.05f)*(1.0f+0.1f));
-		assertEquals(Price.inCents(expectedNotExempt), p.priceWithTax());
+		assertEquals(Price.inCents(expectedNotExempt), p.getPriceWithTax());
 	}
 }

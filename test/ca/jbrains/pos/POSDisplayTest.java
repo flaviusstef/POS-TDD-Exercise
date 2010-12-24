@@ -10,9 +10,9 @@ public class POSDisplayTest {
 	}
 	
 	@Test
-	public void itDisplaysPrices() {
+	public void itDisplaysProductPrices() {
 		POSDisplay pd = new POSDisplay();
-		pd.displayPrice(Price.inCents(100));
+		pd.displayPrice(new Price(100));
 		assertEquals("$1.00", pd.getText());
 	}
 }

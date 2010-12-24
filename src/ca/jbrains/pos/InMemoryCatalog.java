@@ -1,11 +1,11 @@
 package ca.jbrains.pos;
 
-import java.util.Map;
+import java.util.List;
 
 class InMemoryCatalog implements Catalog {
-	private Map<String, Price> pricesByBarcode;
+	private List<Product> pricesByBarcode;
 
-	public InMemoryCatalog(Map<String, Price> pricesByBarcode) {
+	public InMemoryCatalog(List<Product> pricesByBarcode) {
 		if (pricesByBarcode == null) {
 			throw new IllegalArgumentException("pricesByBarcode = " + pricesByBarcode);
 		}
@@ -13,11 +13,21 @@ class InMemoryCatalog implements Catalog {
 		this.pricesByBarcode = pricesByBarcode;
 	}
 
-	public Price lookupPrice(String barcode) {
-		return pricesByBarcode.get(barcode);
+	public Product lookupProduct(String barcode) {
+		for (Product p: pricesByBarcode) {
+			if (p.getBarcode().equals(barcode)) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 	public boolean hasBarcode(String barcode) {
-		return pricesByBarcode.containsKey(barcode);
+		for (Product p: pricesByBarcode) {
+			if (p.getBarcode().equals(barcode)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -12,6 +12,10 @@ class Price {
 	public static Price inCents(int cents) {
 		return new Price(cents);
 	}
+	
+	public Price add(Price other) {
+		return new Price(this.getCents()+other.getCents());
+	}
 
 	public int getCents() {
 		return cents;
@@ -21,6 +25,10 @@ class Price {
 		return cents == 0 ? "FREE" : NumberFormat.getCurrencyInstance().format(cents / 100.0d);
 	}
 	
+	public String toString() {
+		return format();
+	}
+	
 	public boolean equals(Object other) {
 		if (other == null || other.getClass() != this.getClass()) {
 			return false;
@@ -28,13 +36,4 @@ class Price {
 		
 		return this.cents == ((Price)other).getCents();
 	}
-
-	public Price add(Price other) {
-		return new Price(this.getCents()+other.getCents());
-	}
-	
-	public String toString() {
-		return format();
-	}
-
 }

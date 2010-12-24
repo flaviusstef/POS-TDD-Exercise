@@ -22,4 +22,8 @@ class POSDisplay {
 	public void displayPrice(Price price) {
 		setText(price.format());
 	}
+
+	public void displayTotalPrice(Price totalCharge) {
+		setText("Total price: " + totalCharge.format());
+	}
 }

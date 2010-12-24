@@ -3,6 +3,7 @@ package ca.jbrains.pos;
 class Sale {
 	private POSDisplay posDisplay;
 	private Catalog catalog;
+	private Price totalCharge = new Price(0);
 
 	public Sale(POSDisplay posDisplay, Catalog catalog) {
 		this.posDisplay = posDisplay;
@@ -20,6 +21,21 @@ class Sale {
 			return;
 		}
 
-		posDisplay.displayPrice(catalog.lookupPrice(barcode));
+		Product p = catalog.lookupProduct(barcode);
+		sellProduct(p);
+	}
+
+	public Price totalCharge() {
+		return totalCharge;
+	}
+	
+	private void sellProduct(Product p) {
+		posDisplay.displayPrice(p.getPrice());
+		totalCharge = totalCharge.add(p.getPriceWithTax());
+	}
+
+	public void complete() {
+		posDisplay.displayTotalPrice(totalCharge);
+		totalCharge = new Price(0);
 	}
 }

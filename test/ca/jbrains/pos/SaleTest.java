@@ -11,18 +11,17 @@ public class SaleTest {
 	@SuppressWarnings("serial")
 	@Before
 	public void setUp() {
-		sale = new Sale(posDisplay, new InMemoryCatalog(new HashMap<String, Price>() {
+		sale = new Sale(posDisplay, new InMemoryCatalog(new ArrayList<Product>() {
 			{
-				put("123", Price.inCents(1250));
-				put("456", Price.inCents(2000));
-				put("333", Price.inCents(0));
+				add(new Product("123", new Price(1000), false));
+				add(new Product("456", new Price(2000), false));
 			}
 		}));
 	}
 
 	@Test
 	public void productFound() throws Exception {
-		assertForBarcodeDisplayShows("123", "$12.50");
+		assertForBarcodeDisplayShows("123", "$10.00");
 	}
 
 	@Test
@@ -38,6 +37,38 @@ public class SaleTest {
 	@Test
 	public void emptyBarcode() throws Exception {
 		assertForBarcodeDisplayShows("", "Scanning error: empty barcode");
+	}
+	
+	@Test
+	public void initialTotalChargeIsZero() {
+		assertEquals(new Price(0), sale.totalCharge());
+	}
+	
+	@Test
+	public void productPriceWithTaxIsAddedToTotalCharge() {
+		sale.onBarcode("123");
+		assertEquals(new Price(1155), sale.totalCharge());
+		sale.onBarcode("123");
+		assertEquals(new Price(2310), sale.totalCharge());
+	}
+	
+	@Test
+	public void completingSaleResetsTotalCharge() {
+		sale.complete();
+		
+		assertEquals(new Price(0), sale.totalCharge());
+	}
+	
+	@Test
+	public void completingSaleShowsTotalOnDisplay() {
+		sale.onBarcode("123");
+		assertEquals(new Price(1155), sale.totalCharge());
+		sale.onBarcode("456");
+		assertEquals(new Price(3465), sale.totalCharge());
+		
+		sale.complete();
+		
+		assertEquals("Total price: $34.65", posDisplay.getText());
 	}
 
 	private void assertForBarcodeDisplayShows(String barcode, String message) {
