@@ -3,7 +3,7 @@ package ca.jbrains.pos;
 class Sale {
 	private POSDisplay posDisplay;
 	private Catalog catalog;
-	private Price totalCharge = new Price(0);
+	private Money totalCharge = new Money(0);
 
 	public Sale(POSDisplay posDisplay, Catalog catalog) {
 		this.posDisplay = posDisplay;
@@ -25,7 +25,7 @@ class Sale {
 		sellProduct(p);
 	}
 
-	public Price totalCharge() {
+	public Money totalCharge() {
 		return totalCharge;
 	}
 	
@@ -36,6 +36,6 @@ class Sale {
 
 	public void complete() {
 		posDisplay.displayTotalPrice(totalCharge);
-		totalCharge = new Price(0);
+		totalCharge = new Money(0);
 	}
 }

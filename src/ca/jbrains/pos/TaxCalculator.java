@@ -2,17 +2,30 @@ package ca.jbrains.pos;
 
 public class TaxCalculator {
 
-	private static final float GST_TAX = 0.05f;
-	private static final float PST_TAX = 0.1f;
-
-	public Price calculate(Product product) {
-		int taxableAmount = product.getPrice().getCents();
-		int gst = Math.round(TaxCalculator.GST_TAX * taxableAmount);
-		int pst = 0;
-		if (!product.isPstExempt()) {
-			pst = Math.round(TaxCalculator.PST_TAX * (gst + taxableAmount));
-		}
-		return new Price(gst+pst);
+	public static final int GST_PERCENT = 5;
+	public static final float PST_PERCENT = 10;
+	
+	private Product product;
+		
+	public TaxCalculator(Product product) {
+		this.product = product;
 	}
 
+	public Money getGST() {
+		int cents = product.getPrice().getCents();
+		return new Money(Math.round(TaxCalculator.GST_PERCENT / 100f * cents));
+	}
+	
+	public Money getPST() {
+		if (product.isPstExempt()) {
+			return new Money(0);
+		}
+		
+		int cents = product.getPrice().getCents() + getGST().getCents();
+		return new Money(Math.round(TaxCalculator.PST_PERCENT / 100f * cents));
+	}
+	
+	public Money getTotalTax() {
+		return getGST().add(getPST());
+	}
 }

@@ -3,10 +3,10 @@ package ca.jbrains.pos;
 public class Product {
 
 	private String barcode;
-	private Price price;
+	private Money price;
 	private Boolean pstExempt;
 
-	public Product(String barcode, Price price, Boolean pstExempt) {
+	public Product(String barcode, Money price, Boolean pstExempt) {
 		this.barcode = barcode;
 		this.price = price;
 		this.pstExempt = pstExempt;
@@ -16,7 +16,7 @@ public class Product {
 		return barcode;
 	}
 	
-	public Price getPrice() {
+	public Money getPrice() {
 		return price;
 	}
 	
@@ -28,8 +28,8 @@ public class Product {
 		this.pstExempt = pstExempt;
 	}
 
-	public Price getPriceWithTax() {
-		Price tax = new TaxCalculator().calculate(this);
+	public Money getPriceWithTax() {
+		Money tax = new TaxCalculator(this).getTotalTax();
 		return this.price.add(tax);
 	}
 

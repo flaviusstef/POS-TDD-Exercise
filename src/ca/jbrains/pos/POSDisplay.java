@@ -19,11 +19,11 @@ class POSDisplay {
 		setText("No product with barcode " + barcode);
 	}
 
-	public void displayPrice(Price price) {
+	public void displayPrice(Money price) {
 		setText(price.format());
 	}
 
-	public void displayTotalPrice(Price totalCharge) {
+	public void displayTotalPrice(Money totalCharge) {
 		setText("Total price: " + totalCharge.format());
 	}
 }

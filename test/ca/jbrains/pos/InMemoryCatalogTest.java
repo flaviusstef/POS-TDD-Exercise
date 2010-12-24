@@ -15,8 +15,8 @@ public class InMemoryCatalogTest {
 		productList = new ArrayList<Product>() {
 			private static final long serialVersionUID = 1L;
 			{
-				add(new Product("123", new Price(100), false));
-				add(new Product("456", new Price(200), false));
+				add(new Product("123", new Money(100), false));
+				add(new Product("456", new Money(200), false));
 			}
 		};		
 	}

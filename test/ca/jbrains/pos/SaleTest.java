@@ -13,8 +13,8 @@ public class SaleTest {
 	public void setUp() {
 		sale = new Sale(posDisplay, new InMemoryCatalog(new ArrayList<Product>() {
 			{
-				add(new Product("123", new Price(1000), false));
-				add(new Product("456", new Price(2000), false));
+				add(new Product("123", new Money(1000), false));
+				add(new Product("456", new Money(2000), false));
 			}
 		}));
 	}
@@ -41,30 +41,30 @@ public class SaleTest {
 	
 	@Test
 	public void initialTotalChargeIsZero() {
-		assertEquals(new Price(0), sale.totalCharge());
+		assertEquals(new Money(0), sale.totalCharge());
 	}
 	
 	@Test
 	public void productPriceWithTaxIsAddedToTotalCharge() {
 		sale.onBarcode("123");
-		assertEquals(new Price(1155), sale.totalCharge());
+		assertEquals(new Money(1155), sale.totalCharge());
 		sale.onBarcode("123");
-		assertEquals(new Price(2310), sale.totalCharge());
+		assertEquals(new Money(2310), sale.totalCharge());
 	}
 	
 	@Test
 	public void completingSaleResetsTotalCharge() {
 		sale.complete();
 		
-		assertEquals(new Price(0), sale.totalCharge());
+		assertEquals(new Money(0), sale.totalCharge());
 	}
 	
 	@Test
 	public void completingSaleShowsTotalOnDisplay() {
 		sale.onBarcode("123");
-		assertEquals(new Price(1155), sale.totalCharge());
+		assertEquals(new Money(1155), sale.totalCharge());
 		sale.onBarcode("456");
-		assertEquals(new Price(3465), sale.totalCharge());
+		assertEquals(new Money(3465), sale.totalCharge());
 		
 		sale.complete();
 		
