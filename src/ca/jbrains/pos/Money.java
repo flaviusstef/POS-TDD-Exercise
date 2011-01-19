@@ -36,4 +36,8 @@ class Money {
 		
 		return this.cents == ((Money)other).getCents();
 	}
+
+	public Money remove(Money lastPrice) {
+		return new Money(this.cents - lastPrice.getCents());
+	}
 }

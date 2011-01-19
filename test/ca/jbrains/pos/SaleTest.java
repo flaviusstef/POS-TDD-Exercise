@@ -47,9 +47,9 @@ public class SaleTest {
 	@Test
 	public void productPriceWithTaxIsAddedToTotalCharge() {
 		sale.onBarcode("123");
-		assertEquals(new Money(1155), sale.totalCharge());
+		assertEquals(new Money(1000+155), sale.totalCharge());
 		sale.onBarcode("123");
-		assertEquals(new Money(2310), sale.totalCharge());
+		assertEquals(new Money(1000+155+1000+155), sale.totalCharge());
 	}
 	
 	@Test
@@ -63,12 +63,24 @@ public class SaleTest {
 	public void completingSaleShowsTotalOnDisplay() {
 		sale.onBarcode("123");
 		assertEquals(new Money(1155), sale.totalCharge());
-		sale.onBarcode("456");
-		assertEquals(new Money(3465), sale.totalCharge());
 		
 		sale.complete();
 		
-		assertEquals("Total price: $34.65", posDisplay.getText());
+		assertEquals("Total price: $11.55", posDisplay.getText());
+	}
+
+	@Test
+	public void priceOfLastProductCanBeOverridenIfTwoProductsPurchased() {
+		sale.onBarcode("123");
+		// guard assertion
+		assertEquals(new Money(1155), sale.totalCharge());
+		sale.onBarcode("123");
+		// guard assertion
+		assertEquals(new Money(2310), sale.totalCharge());
+
+		sale.overrideLastPriceWith(new Money(1000));
+		
+		assertEquals(new Money(2155), sale.totalCharge());
 	}
 
 	private void assertForBarcodeDisplayShows(String barcode, String message) {

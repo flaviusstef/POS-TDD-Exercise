@@ -4,6 +4,7 @@ class Sale {
 	private POSDisplay posDisplay;
 	private Catalog catalog;
 	private Money totalCharge = new Money(0);
+	private Money lastPrice = new Money(0);
 
 	public Sale(POSDisplay posDisplay, Catalog catalog) {
 		this.posDisplay = posDisplay;
@@ -31,11 +32,17 @@ class Sale {
 	
 	private void sellProduct(Product p) {
 		posDisplay.displayPrice(p.getPrice());
-		totalCharge = totalCharge.add(p.getPriceWithTax());
+		Money price = p.getPriceWithTax();
+		lastPrice  = price;
+		totalCharge = totalCharge.add(price);
 	}
 
 	public void complete() {
 		posDisplay.displayTotalPrice(totalCharge);
 		totalCharge = new Money(0);
+	}
+
+	public void overrideLastPriceWith(Money desired) {
+		totalCharge = totalCharge.remove(lastPrice).add(desired);
 	}
 }
