@@ -47,4 +47,23 @@ public class MoneyTest {
 		Money p2 = new Money(200);
 		assertEquals(new Money(300), p1.add(p2));
 	}
+	
+	@Test
+	public void itCanRemoveLessMoneyFromMoreMoney() {
+		Money more = new Money(200);
+		Money less = new Money(100);
+		
+		Money result = more.remove(less);
+		
+		assertEquals(new Money(100), result);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void itCannotRemoveMoreMoneyFromLessMoney() {
+		Money more = new Money(200);
+		Money less = new Money(100);
+		
+		// this will throw an Exception
+		less.remove(more);
+	}
 }

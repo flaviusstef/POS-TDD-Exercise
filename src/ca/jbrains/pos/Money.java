@@ -38,6 +38,11 @@ class Money {
 	}
 
 	public Money remove(Money lastPrice) {
-		return new Money(this.cents - lastPrice.getCents());
+		int difference = this.cents - lastPrice.getCents();
+		if (difference < 0 ) {
+			throw new IllegalArgumentException("Trying to remove too much");
+		}
+		
+		return new Money(difference);
 	}
 }
