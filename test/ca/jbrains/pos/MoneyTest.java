@@ -60,10 +60,10 @@ public class MoneyTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void itCannotRemoveMoreMoneyFromLessMoney() {
-		Money more = new Money(200);
-		Money less = new Money(100);
+		Money two_dollars = new Money(200);
+		Money one_dollar = new Money(100);
 		
 		// this will throw an Exception
-		less.remove(more);
+		one_dollar.remove(two_dollars);
 	}
 }

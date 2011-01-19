@@ -17,6 +17,15 @@ class Money {
 		return new Money(this.getCents()+other.getCents());
 	}
 
+	public Money remove(Money lastPrice) {
+		int difference = this.cents - lastPrice.getCents();
+		if (difference < 0 ) {
+			throw new IllegalArgumentException("Trying to remove too much");
+		}
+		
+		return new Money(difference);
+	}
+
 	public int getCents() {
 		return cents;
 	}
@@ -35,14 +44,5 @@ class Money {
 		}
 		
 		return this.cents == ((Money)other).getCents();
-	}
-
-	public Money remove(Money lastPrice) {
-		int difference = this.cents - lastPrice.getCents();
-		if (difference < 0 ) {
-			throw new IllegalArgumentException("Trying to remove too much");
-		}
-		
-		return new Money(difference);
 	}
 }
