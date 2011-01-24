@@ -22,15 +22,4 @@ public class ProductTest {
 		p.setPstExempt(true);
 		assertTrue(p.isPstExempt());
 	}
-	
-	@Test
-	public void itComputesPriceTax() {
-		p.setPstExempt(true);
-		int expectedExempt = Math.round(1000.0f*(1.0f+0.05f));
-		assertEquals(Money.inCents(expectedExempt), p.getPriceWithTax());
-		
-		p.setPstExempt(false);
-		int expectedNotExempt = Math.round(1000.0f*(1.0f+0.05f)*(1.0f+0.1f));
-		assertEquals(Money.inCents(expectedNotExempt), p.getPriceWithTax());
-	}
 }

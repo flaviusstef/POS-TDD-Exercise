@@ -22,19 +22,23 @@ class Sale {
 			return;
 		}
 
-		Product p = catalog.lookupProduct(barcode);
-		sellProduct(p);
+		sellProductWithBarcode(barcode);
 	}
 
 	public Money totalCharge() {
 		return totalCharge;
 	}
 	
-	private void sellProduct(Product p) {
-		posDisplay.displayPrice(p.getPrice());
-		Money price = p.getPriceWithTax();
-		lastPrice  = price;
-		totalCharge = totalCharge.add(price);
+	private void sellProductWithBarcode(String barcode) {
+		Product p = catalog.lookupProduct(barcode);
+		Money price = p.getPrice();
+		posDisplay.displayPrice(price);
+		lastPrice  = price.add(getTax(p));
+		totalCharge = totalCharge.add(lastPrice);
+	}
+	
+	private Money getTax(Product p) {
+		return new TaxCalculator(p).getTotalTax();
 	}
 
 	public void complete() {

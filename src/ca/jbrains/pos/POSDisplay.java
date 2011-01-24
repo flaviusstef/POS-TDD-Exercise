@@ -23,7 +23,7 @@ class POSDisplay {
 		setText(price.format());
 	}
 
-	public void displayTotalPrice(Money totalCharge) {
-		setText("Total price: " + totalCharge.format());
+	public void displayTotalPrice(Money price) {
+		setText("Total price: " + price.format());
 	}
 }

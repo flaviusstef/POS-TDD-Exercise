@@ -14,6 +14,7 @@ public class SaleTest {
 		sale = new Sale(posDisplay, new InMemoryCatalog(new ArrayList<Product>() {
 			{
 				add(new Product("123", new Money(1000), false));
+				add(new Product("124", new Money(1000), true));
 				add(new Product("456", new Money(2000), false));
 			}
 		}));
@@ -48,10 +49,14 @@ public class SaleTest {
 	public void productPriceWithTaxIsAddedToTotalCharge() {
 		sale.onBarcode("123");
 		assertEquals(new Money(1000+155), sale.totalCharge());
-		sale.onBarcode("123");
-		assertEquals(new Money(1000+155+1000+155), sale.totalCharge());
 	}
 	
+	@Test
+	public void productPriceWithoutTaxIsAddedToTotalCharge() {
+		sale.onBarcode("124");
+		assertEquals(new Money(1000+50), sale.totalCharge());
+	}
+
 	@Test
 	public void completingSaleResetsTotalCharge() {
 		sale.complete();

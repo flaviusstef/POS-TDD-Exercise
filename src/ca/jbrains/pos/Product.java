@@ -27,10 +27,4 @@ public class Product {
 	public void setPstExempt(Boolean pstExempt) {
 		this.pstExempt = pstExempt;
 	}
-
-	public Money getPriceWithTax() {
-		Money tax = new TaxCalculator(this).getTotalTax();
-		return this.price.add(tax);
-	}
-
 }
