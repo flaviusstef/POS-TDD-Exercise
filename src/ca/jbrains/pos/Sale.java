@@ -2,11 +2,11 @@ package ca.jbrains.pos;
 
 class Sale {
 	private POSDisplay posDisplay;
-	private Catalog catalog;
+	private ICatalog catalog;
 	private Money totalCharge = new Money(0);
 	private Money lastPrice = new Money(0);
 
-	public Sale(POSDisplay posDisplay, Catalog catalog) {
+	public Sale(POSDisplay posDisplay, ICatalog catalog) {
 		this.posDisplay = posDisplay;
 		this.catalog = catalog;
 	}

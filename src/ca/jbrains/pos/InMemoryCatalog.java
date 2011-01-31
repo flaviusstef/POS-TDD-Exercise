@@ -2,7 +2,7 @@ package ca.jbrains.pos;
 
 import java.util.List;
 
-class InMemoryCatalog implements Catalog {
+class InMemoryCatalog implements ICatalog {
 	private List<Product> pricesByBarcode;
 
 	public InMemoryCatalog(List<Product> pricesByBarcode) {
