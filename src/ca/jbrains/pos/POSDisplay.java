@@ -1,13 +1,13 @@
 package ca.jbrains.pos;
 
-class POSDisplay {
+class POSDisplay implements IView {
 	private String text;
 
 	private void setText(String text) {
 		this.text = text;
 	}
 
-	public String getText() {
+	public String getOutput() {
 		return text;
 	}
 

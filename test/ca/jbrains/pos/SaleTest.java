@@ -71,7 +71,7 @@ public class SaleTest {
 		
 		sale.complete();
 		
-		assertEquals("Total price: $11.55", posDisplay.getText());
+		assertEquals("Total price: $11.55", posDisplay.getOutput());
 	}
 
 	@Test
@@ -90,6 +90,6 @@ public class SaleTest {
 
 	private void assertForBarcodeDisplayShows(String barcode, String message) {
 		sale.onBarcode(barcode);
-		assertEquals(message, posDisplay.getText());
+		assertEquals(message, posDisplay.getOutput());
 	}
 }

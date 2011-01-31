@@ -13,6 +13,6 @@ public class POSDisplayTest {
 	public void itDisplaysProductPrices() {
 		POSDisplay pd = new POSDisplay();
 		pd.displayPrice(new Money(100));
-		assertEquals("$1.00", pd.getText());
+		assertEquals("$1.00", pd.getOutput());
 	}
 }
